@@ -3,25 +3,28 @@
 #filename:test_xlwt.py
 #author:defias
 #date:xxxx-xx-xx
-#function£ºĞÂ½¨excelÎÄ¼ş²¢Ğ´ÈëÊı¾İ
+#functionï¼šæ–°å»ºexcelæ–‡ä»¶å¹¶å†™å…¥æ•°æ®
 #######################################################
 import xlwt
 import random
-#´´½¨workbookºÍsheet¶ÔÏó
-workbook = xlwt.Workbook() #×¢ÒâWorkbookµÄ¿ªÍ·WÒª´óĞ´
+#åˆ›å»ºworkbookå’Œsheetå¯¹è±¡
+workbook = xlwt.Workbook() #æ³¨æ„Workbookçš„å¼€å¤´Wè¦å¤§å†™
 
-#-----------Ê¹ÓÃÑùÊ½-----------------------------------
-#³õÊ¼»¯ÑùÊ½
-#ÎªÑùÊ½´´½¨×ÖÌå
+#-----------ä½¿ç”¨æ ·å¼-----------------------------------
+#åˆå§‹åŒ–æ ·å¼
+#ä¸ºæ ·å¼åˆ›å»ºå­—ä½“
 font = xlwt.Font()
 font.name =  'TimesNew Roman'
 font.bold = True
 font.colour_index = 0x40
 font.height = 800
-font.size = 30
+
+alignment = xlwt.Alignment() # Create Alignment
+alignment.horz = xlwt.Alignment.HORZ_CENTER # May be: HORZ_GENERAL, HORZ_LEFT, HORZ_CENTER,
 
 style = xlwt.XFStyle()
 style.font = font
+style.alignment = alignment
 
 for sheet_cnt in range(1,31):
 
@@ -45,7 +48,11 @@ for sheet_cnt in range(1,31):
             a=random.randint(10,2001)
             b=random.randint(10,a)
             c=a-b
-
+        sheet.col(0).width = 5000
+        sheet.col(1).width = 2000
+        sheet.col(2).width = 5000
+        sheet.col(3).width = 2000
+        sheet.col(4).width = 5000
         sheet.write(num,0,a,style)
         sheet.write(num,1,sign_show,style)
         sheet.write(num,2,b,style)
@@ -53,6 +60,6 @@ for sheet_cnt in range(1,31):
         sheet.write(num,4,c,style)
 
 
-#±£´æ¸ÃexcelÎÄ¼ş,ÓĞÍ¬ÃûÎÄ¼şÊ±Ö±½Ó¸²¸Ç
-workbook.save('D:\\github\\mytest\\auto_calc\\result.xls')
-print '´´½¨excelÎÄ¼şÍê³É£¡'
+#ä¿å­˜è¯¥excelæ–‡ä»¶,æœ‰åŒåæ–‡ä»¶æ—¶ç›´æ¥è¦†ç›–
+workbook.save('E:\\work\\python\\auto_calc\\result.xls')
+print 'åˆ›å»ºexcelæ–‡ä»¶å®Œæˆï¼'
