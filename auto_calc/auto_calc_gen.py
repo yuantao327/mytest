@@ -41,27 +41,27 @@ style.alignment = alignment
 
 # AAAxA=BBBB
 def calc_0(offset_col,offset_row ):
-	  mult_b = random.choice((2,3,4))
+    mult_b = random.choice((2,3,4))
     if mult_b==2:
-       mult_a_1 = random.choice((1,2,3,4))
-       mult_a_2 = random.choice((1,2,3,4))
-       mult_a_3 = random.randint(0,9)
+        mult_a_1 = random.choice((1,2,3,4))
+        mult_a_2 = random.choice((1,2,3,4))
+        mult_a_3 = random.randint(0,9)
     elif mult_b==3:
-       mult_a_1 = random.choice((1,2,3))
-       mult_a_2 = random.choice((1,2,3))
-       mult_a_3 = random.randint(0,9)
+        mult_a_1 = random.choice((1,2,3))
+        mult_a_2 = random.choice((1,2,3))
+        mult_a_3 = random.randint(0,9)
     elif mult_b==4:
-       mult_a_1 = random.choice((1,2))
-       mult_a_2 = random.choice((1,2))
-       mult_a_3 = random.randint(0,9)
+        mult_a_1 = random.choice((1,2))
+        mult_a_2 = random.choice((1,2))
+        mult_a_3 = random.randint(0,9)
     elif mult_b==5:
-       mult_a_1 = 1
-       mult_a_2 = 1
-       mult_a_3 = random.randint(0,9)
+        mult_a_1 = 1
+        mult_a_2 = 1
+        mult_a_3 = random.randint(0,9)
     else:
-       mult_a_1 = 1
-       mult_a_2 = 1
-       mult_a_3 = 1
+        mult_a_1 = 1
+        mult_a_2 = 1
+        mult_a_3 = 1
 
     mult_a= int(str(mult_a_3)+str(mult_a_2)+str(mult_a_1))
     mult = mult_a*mult_b
@@ -82,7 +82,7 @@ def calc_0(offset_col,offset_row ):
     return;
 
 
-for sheet_cnt in range(1,2):
+for sheet_cnt in range(1,6):
     sheet_name = 'sheet'+str(sheet_cnt)
     sheet  = workbook.add_sheet(sheet_name,cell_overwrite_ok=True)
     sheet.write_merge(0, 0, 0, 10, 'Maths excersise '+sheet_name,style) # Merges row 0's columns 0 through 3.
