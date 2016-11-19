@@ -35,19 +35,28 @@ style.alignment = alignment
 
 # AAAxA=BBBB
 def calc_gen(offset_col,offset_row ):
-    mult_b = random.randint(2,9)
-    mult_a = random.randint(10,999)
+    mult_b = random.randint(0,9)
+    mult_a = random.randint(10,200)
     mult = mult_a*mult_b
     sheet.col(offset_col+0).width = 2000
     sheet.col(offset_col+1).width = 600
     sheet.col(offset_col+2).width = 2000
     sheet.col(offset_col+3).width = 600
     sheet.col(offset_col+4).width = 2000
-    sheet.write(offset_row,offset_col+0,mult_a,style)
-    sheet.write(offset_row,offset_col+1,'x',style)
-    sheet.write(offset_row,offset_col+2,mult_b,style)
-    sheet.write(offset_row,offset_col+3,'=',style)
-    sheet.write(offset_row,offset_col+4,mult,style)
+    exchange = random.randint(0,20)
+    if exchange <> 0 :
+        sheet.write(offset_row,offset_col+0,mult_a,style)
+        sheet.write(offset_row,offset_col+1,'x',style)
+        sheet.write(offset_row,offset_col+2,mult_b,style)
+        sheet.write(offset_row,offset_col+3,'=',style)
+        sheet.write(offset_row,offset_col+4,mult,style)
+    else :
+        sheet.write(offset_row,offset_col+0,mult_b,style)
+        sheet.write(offset_row,offset_col+1,'x',style)
+        sheet.write(offset_row,offset_col+2,mult_a,style)
+        sheet.write(offset_row,offset_col+3,'=',style)
+        sheet.write(offset_row,offset_col+4,mult,style)
+
 #    print mult_a
 #    print mult_b
 #    print mult
@@ -55,7 +64,7 @@ def calc_gen(offset_col,offset_row ):
     return;
 
 
-for sheet_cnt in range(1,6):
+for sheet_cnt in range(1,31):
     sheet_name = 'sheet'+str(sheet_cnt)
     sheet  = workbook.add_sheet(sheet_name,cell_overwrite_ok=True)
     sheet.write_merge(0, 0, 0, 10, 'Maths excersise '+sheet_name,style) # Merges row 0's columns 0 through 3.
