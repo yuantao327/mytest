@@ -35,6 +35,8 @@ style.alignment = alignment
 
 file_h = open('./result.txt', 'w')
 
+file_h.write('三年级数学练习答案'+'\n\n')
+
 
 # AAAxA=BBBB
 def calc_gen(offset_col,offset_row ):
@@ -84,8 +86,11 @@ def blank(offset_col,offset_row ):
 
 for sheet_cnt in range(1,8):
     sheet_name = 'sheet'+str(sheet_cnt)
+    sheet_name_out = '第'+str(sheet_cnt)+'页'
+    sheet_name_print = u'三年级数学练习    姓名:____________ '
     sheet  = workbook.add_sheet(sheet_name,cell_overwrite_ok=True)
-    sheet.write_merge(0, 0, 0, 16, u'三年级数学练习    姓名:____________ ',style) # Merges row 0's columns 0 through 10.
+    sheet.write_merge(0, 0, 0, 16,sheet_name_print,style) # Merges row 0's columns 0 through 10.
+    file_h.write('----------------'+ sheet_name_out + '--------------------\n\n')
     for i in range(1,8):
         calc_gen(0,i*4-2)
         blank(0,i*4-1)
