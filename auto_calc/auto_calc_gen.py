@@ -17,7 +17,7 @@ font = xlwt.Font()
 font.name =  'TimesNew Roman'
 font.bold = True
 font.colour_index = 0x40
-font.height = 250
+font.height = 400
 
 alignment = xlwt.Alignment() # Create Alignment
 alignment.horz = xlwt.Alignment.HORZ_CENTER # May be: HORZ_GENERAL, HORZ_LEFT, HORZ_CENTER,
@@ -33,29 +33,34 @@ style.font = font
 style.alignment = alignment
 #style.borders = borders
 
+file_h = open('./result.txt', 'w')
+
+
 # AAAxA=BBBB
 def calc_gen(offset_col,offset_row ):
-    mult_b = random.randint(0,9)
-    mult_a = random.randint(10,200)
+    mult_b = random.randint(2,9)
+    mult_a = random.randint(10,499)
     mult = mult_a*mult_b
     sheet.col(offset_col+0).width = 2000
     sheet.col(offset_col+1).width = 600
     sheet.col(offset_col+2).width = 2000
     sheet.col(offset_col+3).width = 600
-    sheet.col(offset_col+4).width = 2000
+    sheet.col(offset_col+4).width = 2500
+    sheet.col(offset_col+5).width = 500
     exchange = random.randint(0,20)
     if exchange <> 0 :
         sheet.write(offset_row,offset_col+0,mult_a,style)
         sheet.write(offset_row,offset_col+1,'x',style)
         sheet.write(offset_row,offset_col+2,mult_b,style)
         sheet.write(offset_row,offset_col+3,'=',style)
-        sheet.write(offset_row,offset_col+4,mult,style)
+        #sheet.write(offset_row,offset_col+4,mult,style)
     else :
         sheet.write(offset_row,offset_col+0,mult_b,style)
         sheet.write(offset_row,offset_col+1,'x',style)
         sheet.write(offset_row,offset_col+2,mult_a,style)
         sheet.write(offset_row,offset_col+3,'=',style)
-        sheet.write(offset_row,offset_col+4,mult,style)
+        #sheet.write(offset_row,offset_col+4,mult,style)
+    file_h.write(str(mult)+'  ')
 
 #    print mult_a
 #    print mult_b
@@ -63,22 +68,55 @@ def calc_gen(offset_col,offset_row ):
 
     return;
 
+def blank(offset_col,offset_row ):
+    sheet.col(offset_col+0).width = 2000
+    sheet.col(offset_col+1).width = 600
+    sheet.col(offset_col+2).width = 2000
+    sheet.col(offset_col+3).width = 600
+    sheet.col(offset_col+4).width = 2500
+    sheet.col(offset_col+5).width = 500
+    sheet.write(offset_row,offset_col+0,'',style)
+    sheet.write(offset_row,offset_col+1,'',style)
+    sheet.write(offset_row,offset_col+2,'',style)
+    sheet.write(offset_row,offset_col+3,'',style)
+    return;
 
-for sheet_cnt in range(1,31):
+
+for sheet_cnt in range(1,8):
     sheet_name = 'sheet'+str(sheet_cnt)
     sheet  = workbook.add_sheet(sheet_name,cell_overwrite_ok=True)
-    sheet.write_merge(0, 0, 0, 10, 'Maths excersise '+sheet_name,style) # Merges row 0's columns 0 through 3.
-    for i in range(1,22):
-        calc_gen(0,i)
-        calc_gen(6,i)
+    sheet.write_merge(0, 0, 0, 16, u'三年级数学练习    姓名:____________ ',style) # Merges row 0's columns 0 through 10.
+    for i in range(1,8):
+        calc_gen(0,i*4-2)
+        blank(0,i*4-1)
+        blank(0,i*4+1)
+        blank(0,i*4)
+    for i in range(1,8):
+        calc_gen(6,i*4-2)
+        blank(6,i*4-1)
+        blank(6,i*4)
+        blank(6,i*4+1)
+    for i in range(1,8):
+        calc_gen(12,i*4-2)
+        blank(12,i*4-1)
+        blank(12,i*4)
+        blank(12,i*4+1)
 
-    for i in range(23,44):
-        calc_gen(0,i)
-        calc_gen(6,i)
+    file_h.write(' \n\n ')
 
+    sheet.write_merge(30, 30, 0, 16, u'等级__________ 签字__________  日期____________',style)
+
+#    for i in range(23,44):
+#        calc_gen(0,i)
+#    for i in range(23,44):
+#        calc_gen(6,i)
+#    for i in range(23,44):
+#        calc_gen(12,i)
 
 workbook.save('result.xls')
 print '创建excel文件完成！'
+
+file_h.close()
 
 #print '请关闭excel文件重试！'
 
