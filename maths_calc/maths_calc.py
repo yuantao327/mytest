@@ -56,8 +56,8 @@ file_h.write('三年级数学练习答案'+'\n\n')
 #-------------------------------------------------------------
 # AAA+BBB=CCCC
 def calc_gen_add(offset_col,offset_row ):
-    add_a = random.randint(10,499)
-    add_b = random.randint(10,499)
+    add_a = random.randint(100,2000)
+    add_b = random.randint(100,2000)
     sum_c = add_a + add_b
     sheet.col(offset_col+0).width = FORM_WIDTH
     str_out=str(add_a)+' + '+str(add_b)+' = '
@@ -69,8 +69,8 @@ def calc_gen_add(offset_col,offset_row ):
 #-------------------------------------------------------------
 # CCCC-BBB=AAA
 def calc_gen_sub(offset_col,offset_row ):
-    add_a = random.randint(10,499)
-    add_b = random.randint(10,499)
+    add_a = random.randint(100,1000)
+    add_b = random.randint(100,1000)
     sum_c = add_a + add_b
     sheet.col(offset_col+0).width = FORM_WIDTH
     str_out=str(sum_c)+' - '+str(add_b)+' = '
@@ -83,7 +83,7 @@ def calc_gen_sub(offset_col,offset_row ):
 # AAAxB=CCCC
 def calc_gen_mult(offset_col,offset_row ):
     mult_b = random.randint(2,9)
-    mult_a = random.randint(10,499)
+    mult_a = random.randint(10,999)
     mult = mult_a*mult_b
     sheet.col(offset_col+0).width = FORM_WIDTH
     exchange = random.randint(0,20)
@@ -100,9 +100,9 @@ def calc_gen_mult(offset_col,offset_row ):
 #-------------------------------------------------------------
 # AAA+BBB+CCC=DDDD
 def calc_gen_mix_0(offset_col,offset_row ):
-    add_a = random.randint(10,299)
-    add_b = random.randint(10,299)
-    add_c = random.randint(10,299)
+    add_a = random.randint(100,999)
+    add_b = random.randint(100,999)
+    add_c = random.randint(100,999)
     sum_d = add_a + add_b + add_c
     sheet.col(offset_col+0).width = FORM_WIDTH
     str_out=str(add_a)+'+'+str(add_b)+ '+' + str(add_c) + '='
@@ -114,7 +114,7 @@ def calc_gen_mix_0(offset_col,offset_row ):
 #-------------------------------------------------------------
 # AAA*B + CCC = DDDD or CCC+AAA*B = DDDD
 def calc_gen_mix_1(offset_col,offset_row ):
-    mult_a = random.randint(10,499)
+    mult_a = random.randint(100,499)
     mult_b = random.randint(2,9)
     add_c = random.randint(10,499)
     sum_d = mult_a*mult_b+add_c
@@ -155,9 +155,9 @@ def calc_gen_mix_2(offset_col,offset_row ):
 #-------------------------------------------------------------
 # DDD-AAA-BBB = CCC
 def calc_gen_mix_3(offset_col,offset_row ):
-    add_a = random.randint(10,299)
-    add_b = random.randint(10,299)
-    add_c = random.randint(10,299)
+    add_a = random.randint(10,499)
+    add_b = random.randint(10,499)
+    add_c = random.randint(10,499)
     sum_d = add_a + add_b + add_c
     sheet.col(offset_col+0).width = FORM_WIDTH
     str_out=str(sum_d)+'-'+str(add_a)+ '-'+ str(add_b) + '='
@@ -169,9 +169,9 @@ def calc_gen_mix_3(offset_col,offset_row ):
 #-------------------------------------------------------------
 # DDD-(AAA+BBB) = CCC
 def calc_gen_mix_4(offset_col,offset_row ):
-    add_a = random.randint(10,299)
-    add_b = random.randint(10,299)
-    add_c = random.randint(10,299)
+    add_a = random.randint(10,499)
+    add_b = random.randint(10,499)
+    add_c = random.randint(10,499)
     sum_d = add_a + add_b + add_c
     sheet.col(offset_col+0).width = FORM_WIDTH
     str_out=str(sum_d) + '-' + '(' + str(add_a) + '+' + str(add_b)+')' + '='
@@ -286,8 +286,11 @@ for sheet_cnt in range(1,8):
     for i in range(1,8):
         calc_gen_mult(0,i*2-1)
         blank(0,i*2)
-    for i in range(1,8):
-        calc_gen_mult(2,i*2-1)
+    for i in range(1,5):
+        calc_gen_add(2,i*2-1)
+        blank(2,i*2)
+    for i in range(5,8):
+        calc_gen_sub(2,i*2-1)
         blank(2,i*2)
     for i in range(1,8):
         select_mix = random.randint(0,10)
