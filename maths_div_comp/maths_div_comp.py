@@ -590,7 +590,7 @@ def calc_mixed_2(offset_row,offset_col):
 
     return;
 
-def calc_mixed(offset_row,offset_col):
+def calc_comp_mixed(offset_row,offset_col):
     select_mix = random.randint(1,5)
     if select_mix == 1 :
         calc_mixed_2(offset_row,offset_col)
@@ -598,6 +598,16 @@ def calc_mixed(offset_row,offset_col):
         calc_mixed_1(offset_row,offset_col)
 
     return;
+
+def calc_div_mixed(offset_row,offset_col):
+    select_mix = random.randint(0,1)
+    if select_mix == 0 :
+        calc_gen_add(offset_row,offset_col)
+    else:
+        calc_gen_sub(offset_row,offset_col)
+
+    return;
+
 
 
 for sheet_cnt in range(1,8):
@@ -609,13 +619,18 @@ for sheet_cnt in range(1,8):
     sheet.footer_str = u'第'+str(sheet_cnt)+u'页'
     sheet.write_merge(0, 0, 0, 14,sheet_name_print,style1) # Merges row 0's columns 0 through 10.
     file_h.write('----------------'+ sheet_name_out + '--------------------\n\n')
-    for i in range(1,11):
-        calc_mixed(i*3-1,0)
+    for i in range(1,5):
+        calc_comp_mixed(i*3-1,0)
+        blank(i*3+1,0)
+    file_h.write('\n')
+
+    for i in range(5,11):
+        calc_div_mixed(i*3-1,0)
         blank(i*3+1,0)
     file_h.write('\n')
 
     for i in range(1,11):
-        calc_mixed(i*3-1,8)
+        calc_div_mixed(i*3-1,8)
         blank(i*3+1,8)
     file_h.write('\n')
 
