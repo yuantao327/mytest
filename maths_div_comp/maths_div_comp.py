@@ -428,14 +428,14 @@ def calc_gen_comp6(offset_row,offset_col):
 
     sheet.col(offset_col+4).width = DATA_WIDTH
     sheet.write(offset_row,offset_col+4,str(sum_cd),style3)
-    sheet.write(offset_row+1,offset_col+4,str(data_z),style1)
+    sheet.write(offset_row+1,offset_col+4,str(data_z_tmp),style1)
 
     sheet.col(offset_col+5).width = SIGN_WIDTH
     sheet.write_merge(offset_row, offset_row+1, offset_col+5, offset_col+5,"-",style1) # Merges row 0's columns 0 through 10.
 
     sheet.col(offset_col+6).width = DATA_WIDTH
     sheet.write(offset_row,offset_col+6,str(data_c),style3)
-    sheet.write(offset_row+1,offset_col+6,str(data_z),style1)
+    sheet.write(offset_row+1,offset_col+6,str(data_z_tmp),style1)
 
     file_h.write(data_out+'  ')
 
