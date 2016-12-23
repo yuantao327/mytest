@@ -118,6 +118,50 @@ def calc_gen_sub(offset_row,offset_col):
     return;
 
 #-------------------------------------------------------------
+# AAA+BBB=CCCC
+def calc_gen_add_s(offset_row,offset_col):
+    add_a = random.randint(50,500)
+    add_b = random.randint(50,500)
+    sum_c = add_a + add_b
+    sum_c_s = int(round(float(add_a)/10)*10)+int(round(float(add_b)/10)*10)
+
+    sheet.col(offset_col).width = DATA_WIDTH
+    sheet.write(offset_row,offset_col,str(add_a),style1)
+    sheet.col(offset_col+1).width = SIGN_WIDTH
+    sheet.write(offset_row,offset_col+1,"+",style1)
+    sheet.col(offset_col+2).width = DATA_WIDTH
+    sheet.write(offset_row,offset_col+2,str(add_b),style1)
+    sheet.col(offset_col+3).width = SIGN_WIDTH
+    sheet.write(offset_row,offset_col+3,u'≈',style1)
+
+    file_h.write(str(sum_c_s)+'  ')
+
+    return;
+
+#-------------------------------------------------------------
+# CCCC-BBB=AAA
+def calc_gen_sub_s(offset_row,offset_col):
+    add_a = random.randint(50,500)
+    add_b = random.randint(50,500)
+    sum_c = add_a + add_b
+    add_a_s = int(round(float(sum_c)/10)*10)-int(round(float(add_b)/10)*10)
+#    sheet.col(offset_col+0).width = DATA_WIDTH
+#    str_out=str(sum_c)+' - '+str(add_b)+' = '
+#    sheet.write(offset_row,offset_col+0,str_out,style1)
+    sheet.col(offset_col).width = DATA_WIDTH
+    sheet.write(offset_row,offset_col,str(sum_c),style1)
+    sheet.col(offset_col+1).width = SIGN_WIDTH
+    sheet.write(offset_row,offset_col+1,"-",style1)
+    sheet.col(offset_col+2).width = DATA_WIDTH
+    sheet.write(offset_row,offset_col+2,str(add_b),style1)
+    sheet.col(offset_col+3).width = SIGN_WIDTH
+    sheet.write(offset_row,offset_col+3,u'≈',style1)
+
+    file_h.write(str(add_a_s)+'  ')
+
+    return;
+
+#-------------------------------------------------------------
 # AAAxB=CCCC
 def calc_gen_mult(offset_row,offset_col):
     mult_b = random.randint(2,9)
@@ -138,11 +182,11 @@ def calc_gen_mult(offset_row,offset_col):
 #        sheet.write(offset_row,offset_col+0,str_out,style1)
     else :
         sheet.col(offset_col).width = DATA_WIDTH
-        sheet.write(offset_row,offset_col,str(mult_a),style1)
+        sheet.write(offset_row,offset_col,str(mult_b),style1)
         sheet.col(offset_col+1).width = SIGN_WIDTH
         sheet.write(offset_row,offset_col+1, u' × ',style1)
         sheet.col(offset_col+2).width = DATA_WIDTH
-        sheet.write(offset_row,offset_col+2,str(mult_b),style1)
+        sheet.write(offset_row,offset_col+2,str(mult_a),style1)
         sheet.col(offset_col+3).width = SIGN_WIDTH
         sheet.write(offset_row,offset_col+3,"=",style1)
 #        str_out= str(mult_b) + u' × ' + str(mult_a) + ' = '
@@ -150,6 +194,43 @@ def calc_gen_mult(offset_row,offset_col):
 
 
     file_h.write(str(mult)+'  ')
+
+    return;
+
+#-------------------------------------------------------------
+# AAAxB=CCCC
+def calc_gen_mult_s(offset_row,offset_col):
+    mult_b = random.randint(2,9)
+    mult_a = random.randint(10,999)
+    mult = mult_a*mult_b
+    mult_s = int(round(float(mult_a)/10)*10)*mult_b
+#    sheet.col(offset_col+0).width = DATA_WIDTH
+    exchange = random.randint(0,2)
+    if exchange <> 0 :
+        sheet.col(offset_col).width = DATA_WIDTH
+        sheet.write(offset_row,offset_col,str(mult_a),style1)
+        sheet.col(offset_col+1).width = SIGN_WIDTH
+        sheet.write(offset_row,offset_col+1, u' × ',style1)
+        sheet.col(offset_col+2).width = DATA_WIDTH
+        sheet.write(offset_row,offset_col+2,str(mult_b),style1)
+        sheet.col(offset_col+3).width = SIGN_WIDTH
+        sheet.write(offset_row,offset_col+3,u'≈',style1)
+#        str_out=str(mult_a)+u' × '+str(mult_b)+' = '
+#        sheet.write(offset_row,offset_col+0,str_out,style1)
+    else :
+        sheet.col(offset_col).width = DATA_WIDTH
+        sheet.write(offset_row,offset_col,str(mult_b),style1)
+        sheet.col(offset_col+1).width = SIGN_WIDTH
+        sheet.write(offset_row,offset_col+1, u' × ',style1)
+        sheet.col(offset_col+2).width = DATA_WIDTH
+        sheet.write(offset_row,offset_col+2,str(mult_a),style1)
+        sheet.col(offset_col+3).width = SIGN_WIDTH
+        sheet.write(offset_row,offset_col+3,u'≈',style1)
+#        str_out= str(mult_b) + u' × ' + str(mult_a) + ' = '
+#        sheet.write(offset_row,offset_col+0,str_out,style1)
+
+
+    file_h.write(str(mult_s)+'  ')
 
     return;
 
@@ -1041,6 +1122,19 @@ def calc_add_sub_sel(offset_row,offset_col):
 
     return;
 
+##--------------------------------------------------
+## Random select the calc_div function
+
+def calc_add_sub_s_sel(offset_row,offset_col):
+    select_mix = random.randint(0,1)
+    if select_mix == 0 :
+        calc_gen_add_s(offset_row,offset_col)
+    else:
+        calc_gen_sub_s(offset_row,offset_col)
+
+    return;
+
+
 #-------------------------------------------------------------
 #-------------------------------------------------------------
 
@@ -1050,29 +1144,26 @@ def blank(offset_row,offset_col):
     return;
 
 
-for sheet_cnt in range(1,1001):
+for sheet_cnt in range(1,8):
     sheet_name = 'sheet'+str(sheet_cnt)
     sheet_name_out = '第'+str(sheet_cnt)+'页'
     sheet_name_print = u'三年级数学练习    姓名:____________ '
     sheet  = workbook.add_sheet(sheet_name,cell_overwrite_ok=True)
     sheet.header_str = ''
     sheet.footer_str = u'第'+str(sheet_cnt)+u'页'
-    sheet.write_merge(0, 0, 0, 16,sheet_name_print,style1) # Merges row 0's columns 0 through 10.
+    sheet.write_merge(0, 0, 0, 15,sheet_name_print,style1) # Merges row 0's columns 0 through 10.
     file_h.write('----------------'+ sheet_name_out + '--------------------\n\n')
     for i in range(1,8):
-        calc_add_sub_sel(i*3-1,0)
+        calc_add_sub_s_sel(i*3-1,0)
         blank(i*3+1,0)
     for i in range(1,8):
-        calc_div_sel(i*3-1,5)
+        calc_add_sub_s_sel(i*3-1,5)
         blank(i*3+1,5)
 #    for i in range(5,8):
 #        calc_mixed_sel(i*3-1,5)
 #        blank(i*3+1,5)
-    for i in range(1,5):
-        calc_mixed_sel(i*3-1,10)
-        blank(i*3+1,10)
-    for i in range(5,8):
-        calc_comp_sel(i*3-1,10)
+    for i in range(1,8):
+        calc_gen_mult_s(i*3-1,10)
         blank(i*3+1,10)
 
 #    calc_gen_mix_0(4,1)
@@ -1092,16 +1183,17 @@ for sheet_cnt in range(1,1001):
 
     file_h.write(' \n\n ')
 
-    sheet.write_merge(23, 23, 0, 16, u'签字__________  日期____________',style1)
+    sheet.write_merge(23, 23, 0, 15, u'签字__________  日期____________',style1)
 
 workbook.save('result.xls')
 print '\n----------Excel file have been created successfully!!!----------'
 
 file_h.close()
 
-#test
-#for i in range(1,10):
-#    aaa = random.randint(0,9)
-#    print aaa
-#print '请关闭excel文件重试！'
+##test
+#for i in range(1,20):
+#    tmp = float(i)/10
+#    aaa = int(round(float(i)/10)*10)
+#    print str(i)+"   "+str(tmp)+"   "+str(aaa)
+##print '请关闭excel文件重试！'
 
