@@ -1050,7 +1050,7 @@ def blank(offset_row,offset_col):
     return;
 
 
-for sheet_cnt in range(1,8):
+for sheet_cnt in range(1,1001):
     sheet_name = 'sheet'+str(sheet_cnt)
     sheet_name_out = '第'+str(sheet_cnt)+'页'
     sheet_name_print = u'三年级数学练习    姓名:____________ '
@@ -1095,7 +1095,7 @@ for sheet_cnt in range(1,8):
     sheet.write_merge(23, 23, 0, 16, u'签字__________  日期____________',style1)
 
 workbook.save('result.xls')
-print '创建excel文件完成！'
+print '\n----------Excel file have been created successfully!!!----------'
 
 file_h.close()
 
