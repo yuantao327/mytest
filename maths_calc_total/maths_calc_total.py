@@ -1143,8 +1143,26 @@ def blank(offset_row,offset_col):
     sheet.write(offset_row,offset_col,'',style2)
     return;
 
+def calc_nop(offset_row,offset_col):
+    add_a = random.randint(100,2000)
+    add_b = random.randint(100,2000)
+    sum_c = add_a + add_b
 
-for sheet_cnt in range(1,8):
+    sheet.col(offset_col).width = DATA_WIDTH
+    sheet.write(offset_row,offset_col,"",style1)
+    sheet.col(offset_col+1).width = SIGN_WIDTH
+    sheet.write(offset_row,offset_col+1,"",style1)
+    sheet.col(offset_col+2).width = DATA_WIDTH
+    sheet.write(offset_row,offset_col+2,"",style1)
+    sheet.col(offset_col+3).width = SIGN_WIDTH
+    sheet.write(offset_row,offset_col+3,"=",style1)
+
+    file_h.write(str(sum_c)+'  ')
+
+    return;
+
+
+for sheet_cnt in range(1,5):
     sheet_name = 'sheet'+str(sheet_cnt)
     sheet_name_out = '第'+str(sheet_cnt)+'页'
     sheet_name_print = u'三年级数学练习    姓名:____________ '
@@ -1153,18 +1171,40 @@ for sheet_cnt in range(1,8):
     sheet.footer_str = u'第'+str(sheet_cnt)+u'页'
     sheet.write_merge(0, 0, 0, 15,sheet_name_print,style1) # Merges row 0's columns 0 through 10.
     file_h.write('----------------'+ sheet_name_out + '--------------------\n\n')
-    for i in range(1,8):
+
+    for i in range(1,5):
+        calc_add_sub_sel(i*3-1,0)
+        blank(i*3+1,0)
+    for i in range(5,8):
         calc_add_sub_s_sel(i*3-1,0)
         blank(i*3+1,0)
-    for i in range(1,8):
-        calc_add_sub_s_sel(i*3-1,5)
+    for i in range(1,5):
+        calc_gen_mult(i*3-1,5)
         blank(i*3+1,5)
-#    for i in range(5,8):
-#        calc_mixed_sel(i*3-1,5)
-#        blank(i*3+1,5)
-    for i in range(1,8):
-        calc_gen_mult_s(i*3-1,10)
+    for i in range(5,8):
+        calc_div_sel(i*3-1,5)
+        blank(i*3+1,5)
+    for i in range(1,5):
+        calc_mixed_sel(i*3-1,10)
         blank(i*3+1,10)
+    for i in range(5,8):
+        calc_comp_sel(i*3-1,10)
+        blank(i*3+1,10)
+
+#calc_div_sel
+#calc_comp_sel
+#calc_mixed_sel
+
+
+#    for i in range(1,8):
+#        calc_add_sub_s_sel(i*3-1,0)
+#        blank(i*3+1,0)
+#    for i in range(1,8):
+#        calc_add_sub_s_sel(i*3-1,5)
+#        blank(i*3+1,5)
+#    for i in range(1,8):
+#        calc_add_sub_s_sel(i*3-1,10)
+#        blank(i*3+1,10)
 
 #    calc_gen_mix_0(4,1)
 #    blank(4,2)
