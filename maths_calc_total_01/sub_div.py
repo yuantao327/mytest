@@ -3,13 +3,15 @@
 #filename:sub_mult_div.py
 #author:ytliang
 #date:xxxx-xx-xx
-#function£ºmultiplier and divider functions
+#functionï¿½ï¿½multiplier and divider functions
 #######################################################
 
 #-------------------------------------------------------------
 # AAA+BBB=CCCC
 
-DATA_WIDTH = 1500
+DATA_WIDTH1 = 2500
+DATA_WIDTH2 = 1500
+DATA_WIDTH  = 1500
 SIGN_WIDTH = 1000
 BLANK_HEIGHT = 1050
 DATA_HEIGHT = 300
@@ -29,14 +31,14 @@ def calc_div_add(offset_row,offset_col,style1,style2,sheet,file_h):
         data_out = '1'
     else:
     	  data_out = str(data_d)+'/'+str(data_c)
-    sheet.col(offset_col).width = DATA_WIDTH
+    sheet.col(offset_col).width = DATA_WIDTH1
     sheet.write(offset_row,offset_col,str(data_a),style2)
     sheet.write(offset_row+1,offset_col,str(data_c),style1)
 
     sheet.col(offset_col+1).width = SIGN_WIDTH
     sheet.write_merge(offset_row, offset_row+1, offset_col+1, offset_col+1,"+",style1) # Merges row 0's columns 0 through 10.
 
-    sheet.col(offset_col+2).width = DATA_WIDTH
+    sheet.col(offset_col+2).width = DATA_WIDTH2
     sheet.write(offset_row,offset_col+2,str(data_b),style2)
     sheet.write(offset_row+1,offset_col+2,str(data_c),style1)
 
@@ -88,4 +90,30 @@ def calc_div_sel(offset_row,offset_col,style1,style2,sheet,file_h):
         calc_div_sub(offset_row,offset_col,style1,style2,sheet,file_h)
 
     return;
+
+#-------------------------------------------------------------
+# CCC/B = AAA
+def calc_gen_div(offset_row,offset_col,style,sheet,file_h):
+    data_a = random.randint(1,9)
+    data_b = random.randint(2,9)
+    temp   = random.randint(1,3)
+    if temp == 1:
+        data_a_tmp=data_a
+    elif temp ==2:
+    	  data_a_tmp=data_a*10
+    else:
+    	  data_a_tmp=data_a*100
+    data_c = data_a_tmp*data_b;
+    sheet.col(offset_col).width = DATA_WIDTH
+    sheet.write(offset_row,offset_col,str(data_c),style)
+    sheet.col(offset_col+1).width = SIGN_WIDTH
+    sheet.write(offset_row,offset_col+1,u'Ã·',style)
+    sheet.col(offset_col+2).width = DATA_WIDTH
+    sheet.write(offset_row,offset_col+2,str(data_b),style)
+    sheet.col(offset_col+3).width = SIGN_WIDTH
+    sheet.write(offset_row,offset_col+3,"=",style)
+    file_h.write(str(data_a_tmp)+'  ')
+
+    return;
+
 

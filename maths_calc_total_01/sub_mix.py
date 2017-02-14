@@ -257,7 +257,7 @@ def calc_gen_mix_7(offset_row,offset_col,style,sheet,file_h):
     return;
 
 #-------------------------------------------------------------
-# DDDD-AAA/B = CCC
+# DDDD-AAA*B = CCC
 def calc_gen_mix_8(offset_row,offset_col,style,sheet,file_h):
     data_a = random.randint(1,9)
     data_b = random.randint(2,9)
